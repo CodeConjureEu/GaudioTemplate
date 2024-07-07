@@ -104,8 +104,10 @@ The app is designed mainly with the base resolution of 350 x 680. But we should 
 | Height    | 640 | 932 | 
 
 ## Current Objective
+Business Context:
+The Gaudio app offers personalized guides for exploring museums or local cities. We aim to enhance our app with a map feature to guide users through cities, starting with a curated experience in Einsiedeln.
 
-Objective:
+Objective:  
 Create a React Native screen that integrates a map, usable across Web, iOS, and Android environments, with specific functionality as detailed below.
 
 Project Requirements:
