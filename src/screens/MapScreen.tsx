@@ -33,7 +33,6 @@ export default function App() {
         console.log("Permission to access location was denied");
         return;
       }
-
       let location = await Location.getCurrentPositionAsync({});
       setCurrentLocation(location.coords);
       setRegion({
@@ -71,7 +70,7 @@ export default function App() {
       latitude: region.latitude,
       longitude: region.longitude,
     };
-    const sortedLocations = [...locations].sort((a, b) => {
+    const sortedLocations = [...locations].sort((a, b): number => {
       const distanceA = calculateDistance(
         currentLocation.latitude,
         currentLocation.longitude,
