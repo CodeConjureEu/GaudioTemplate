@@ -59,8 +59,8 @@ export default function App() {
   }, []);
 
   const calculateDistance = (lat1, lon1, lat2, lon2) => {
-    const R = 6371e3; 
-    const φ1 = (lat1 * Math.PI) / 180; 
+    const R = 6371e3;
+    const φ1 = (lat1 * Math.PI) / 180;
     const φ2 = (lat2 * Math.PI) / 180;
     const Δφ = ((lat2 - lat1) * Math.PI) / 180;
     const Δλ = ((lon2 - lon1) * Math.PI) / 180;
@@ -138,10 +138,9 @@ export default function App() {
     }
   };
 
-
-	const refresh = () => {
+  const refresh = () => {
     setRouteCoordinates([]);
-		setSelectedLocation(null)
+    setSelectedLocation(null);
   };
 
   return (
@@ -154,7 +153,7 @@ export default function App() {
       }}
     >
       <MapView
-        style={styles.map}
+        style={GlobalStyles.map}
         region={region}
         onRegionChangeComplete={setRegion}
       >
@@ -178,48 +177,17 @@ export default function App() {
           />
         )}
       </MapView>
-      <View style={styles.recomendButton}>
+      <View style={GlobalStyles.recomendButton}>
         <Button title="Recommended" onPress={showRecommendedLocations} />
       </View>
       {selectedLocation && (
-        <View style={styles.guideButton}>
+        <View style={GlobalStyles.guideButton}>
           <Button title="Guide Me" onPress={guideMe} />
         </View>
       )}
-			<View style={styles.refreshButton}>
+      <View style={GlobalStyles.refreshButton}>
         <Button title="refresh" onPress={refresh} />
       </View>
     </SafeAreaView>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  map: {
-    width: "100%",
-    height: "90%",
-  },
-  guideButton: {
-    position: "absolute",
-    bottom: 50,
-    left: "25%",
-    transform: [{ translateX: -50 }],
-  },
-	recomendButton: {
-		position: "absolute",
-    bottom: 50,
-    left: "50%",
-    transform: [{ translateX: -50 }],
-	},
-	refreshButton: {
-		position: "absolute",
-    bottom: 50,
-    left: "85%",
-    transform: [{ translateX: -50 }],
-	}
-});
