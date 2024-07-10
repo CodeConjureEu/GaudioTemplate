@@ -11,7 +11,8 @@ function TestScreen() {
         width: "100%",
         alignItems: "center",
       }}
-    ></SafeAreaView>
+    >
+		</SafeAreaView>
   );
 }
 
