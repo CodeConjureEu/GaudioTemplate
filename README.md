@@ -95,13 +95,10 @@ To run the app on an emulator, you'll need to set up Android Studio for Android 
 ### Using the Simulator
 
 1. **“Recommended” Button**:
- button labeled “Recommended”.
-This button should highlight or show the three nearest coordinates based on the user’s current location.
-Ensure that these locations are immediately visible on the map.
+A button labeled "Recommended". This button shows the three closest coordinates based on the user's current location.
+
 2. **“Guide Me” Button**:
- button labeled “Guide Me”.
-This button should appear when a location is selected.
-Provide navigation assistance (e.g., a path or directions) from the user’s current location to the selected destination.
+Guide Me Button: A button that says "Guide Me". This button will help you navigate
 
 3. **“Refresh”  Button**:
  button labeled “Refresh”.
