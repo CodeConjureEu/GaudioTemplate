@@ -59,8 +59,8 @@ export default function App() {
   }, []);
 
   const calculateDistance = (lat1, lon1, lat2, lon2) => {
-    const R = 6371e3; // metres
-    const φ1 = (lat1 * Math.PI) / 180; // φ, λ in radians
+    const R = 6371e3; 
+    const φ1 = (lat1 * Math.PI) / 180; 
     const φ2 = (lat2 * Math.PI) / 180;
     const Δφ = ((lat2 - lat1) * Math.PI) / 180;
     const Δλ = ((lon2 - lon1) * Math.PI) / 180;
@@ -70,7 +70,7 @@ export default function App() {
       Math.cos(φ1) * Math.cos(φ2) * Math.sin(Δλ / 2) * Math.sin(Δλ / 2);
     const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
 
-    const d = R * c; // in metres
+    const d = R * c;
     return d;
   };
 
@@ -138,15 +138,21 @@ export default function App() {
     }
   };
 
+
+	const refresh = () => {
+    setRouteCoordinates([]);
+		setSelectedLocation(null)
+  };
+
   return (
-		<SafeAreaView
-		style={{
-			flex: 1,
-			backgroundColor: GlobalStyles.colors.gray,
-			width: "100%",
-			alignItems: "center",
-		}}
-	>
+    <SafeAreaView
+      style={{
+        flex: 1,
+        backgroundColor: GlobalStyles.colors.gray,
+        width: "100%",
+        alignItems: "center",
+      }}
+    >
       <MapView
         style={styles.map}
         region={region}
@@ -172,13 +178,18 @@ export default function App() {
           />
         )}
       </MapView>
-      <Button title="Recommended" onPress={showRecommendedLocations} />
+      <View style={styles.recomendButton}>
+        <Button title="Recommended" onPress={showRecommendedLocations} />
+      </View>
       {selectedLocation && (
         <View style={styles.guideButton}>
           <Button title="Guide Me" onPress={guideMe} />
         </View>
       )}
-		</SafeAreaView>
+			<View style={styles.refreshButton}>
+        <Button title="refresh" onPress={refresh} />
+      </View>
+    </SafeAreaView>
   );
 }
 
@@ -196,7 +207,19 @@ const styles = StyleSheet.create({
   guideButton: {
     position: "absolute",
     bottom: 50,
-    left: "50%",
+    left: "25%",
     transform: [{ translateX: -50 }],
   },
+	recomendButton: {
+		position: "absolute",
+    bottom: 50,
+    left: "50%",
+    transform: [{ translateX: -50 }],
+	},
+	refreshButton: {
+		position: "absolute",
+    bottom: 50,
+    left: "85%",
+    transform: [{ translateX: -50 }],
+	}
 });
