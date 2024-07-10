@@ -21,7 +21,7 @@ Follow these steps to set up the project on your local machine:
 To get started, clone the project repository to your local machine using Git:
 
 ```bash
-git clone https://github.com/CodeConjureEu/GaudioTemplate.git
+git https://github.com/CodeConjureEu/GaudioTemplate/tree/dev
 cd GaudioTemplate
 ```
 
@@ -92,66 +92,18 @@ To run the app on an emulator, you'll need to set up Android Studio for Android 
     - Once the simulator is open, start the app through the Expo development environment by clicking 'Run on iOS
       simulator'.
 
-## Testing
+### Using the Simulator
 
-### Resolution
+1. **“Recommended” Button**:
+ button labeled “Recommended”.
+This button should highlight or show the three nearest coordinates based on the user’s current location.
+Ensure that these locations are immediately visible on the map.
+2. **“Guide Me” Button**:
+ button labeled “Guide Me”.
+This button should appear when a location is selected.
+Provide navigation assistance (e.g., a path or directions) from the user’s current location to the selected destination.
 
-The app is designed mainly with the base resolution of 350 x 680. But we should test the following resolution values:
-
-| Dimension | Min | Max |
-|-----------|-----|-----|
-| Width     | 360 | 430 |
-| Height    | 640 | 932 | 
-
-## Current Objective
-Business Context:
-The Gaudio app offers personalized guides for exploring museums or local cities. We aim to enhance our app with a map feature to guide users through cities, starting with a curated experience in Einsiedeln.
-
-Objective:  
-Create a React Native screen that integrates a map, usable across Web, iOS, and Android environments, with specific functionality as detailed below.
-
-Project Requirements:
-1.	Map Integration: 
-  *  Integrate a map using react-native-maps or react-native-maps-expo or other.
-  *	Ensure the map works seamlessly on web, iOS, and Android platforms using the Expo framework.
-2. Selectable Coordinates:
-* Add markers for the following 8 locations with their respective coordinates:
-  * Frauen Brunnen Einsiedeln: 47.1265432, 8.7523298
-  * Kloster Einsiedeln: 47.1265432, 8.7523298
-  * Wildbienen Paradies: 47.1253739, 8.7519874
-  * Aussichtpunkt St. Benedikt Plattform: 47.1251207, 8.7556303
-  * Panorama Einsiedeln: 47.1303645, 8.7495532
-  * Chärnehus: 47.1262062, 8.7457947
-  * Bibliothek Werner Oechslin: 47.1251934, 8.7449378
-  * Pumptrack Einsiedeln: 47.1370108, 8.7404847
-3.	Feature Implementation:
-* “Recommended” Button:
-  *	Implement a button labeled “Recommended”.
-  *	This button should highlight or show the three nearest coordinates based on the user’s current location.
-  *	Ensure that these locations are immediately visible on the map.
-* “Guide Me” Button:
-  *	Implement a button labeled “Guide Me”.
-  *	This button should appear when a location is selected.
-  *	Provide navigation assistance (e.g., a path or directions) from the user’s current location to the selected destination.
-
-Starting Point:
-* Use the provided React Native Expo Project as the base for development.
-
-Additional Notes:
-* Ensure the user interface is clean and user-friendly.
-* Consider performance optimizations for smooth functionality across all platforms. 
-* Document your code and provide clear instructions on how to run the project.
-* Ensure cross-platform compatibility and test the application on all three environments (web, iOS, Android).
-
-Deliverables:
-* Source code for the React Native screen with the map and specified features.
-* Documentation on setup, running the project, and any configuration steps.
-
-Timeline:
-* The task should be completed within 8 hours.
-
-Communication:
-* Provide regular updates on progress.
-* Inform immediately if any issues arise that may impact the timeline.
-
+3. **“Refresh”  Button**:
+ button labeled “Refresh”.
+This button refresh selected  location.
 
