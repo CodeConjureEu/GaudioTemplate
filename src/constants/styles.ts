@@ -70,4 +70,10 @@ export const GlobalStyles = {
     left: "85%",
     transform: [{ translateX: -50 }],
   },
+	mapBox: {
+		flex: 1,
+		backgroundColor: colors.gray,
+		width: "100%",
+		alignItems: "center",
+	}
 };

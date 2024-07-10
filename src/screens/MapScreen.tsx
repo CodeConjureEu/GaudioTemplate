@@ -138,14 +138,7 @@ export default function App() {
   };
 
   return (
-    <SafeAreaView
-      style={{
-        flex: 1,
-        backgroundColor: GlobalStyles.colors.gray,
-        width: "100%",
-        alignItems: "center",
-      }}
-    >
+    <SafeAreaView style={GlobalStyles.mapBox}>
       <MapView
         style={GlobalStyles.map}
         region={region}
