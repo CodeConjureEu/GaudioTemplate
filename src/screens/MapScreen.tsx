@@ -3,19 +3,30 @@ import { View, Button, Alert, SafeAreaView } from "react-native";
 import MapView, { Marker, Polyline } from "react-native-maps";
 import * as Location from "expo-location";
 import { GlobalStyles } from "../constants";
-import { locations } from "../constants/locations"
+import { locations } from "../constants/locations";
+
+interface LocationData {
+  latitude: number;
+  longitude: number;
+  title: string;
+}
 
 export default function App() {
-  const [region, setRegion] = useState({
+  const [region, setRegion] = useState<Region>({
     latitude: 47.1265432,
     longitude: 8.7523298,
     latitudeDelta: 0.02,
     longitudeDelta: 0.02,
   });
-  const [highlightedLocations, setHighlightedLocations] = useState([]);
-  const [selectedLocation, setSelectedLocation] = useState(null);
-  const [currentLocation, setCurrentLocation] = useState(null);
-  const [routeCoordinates, setRouteCoordinates] = useState([]);
+  const [highlightedLocations, setHighlightedLocations] = useState<
+    LocationData[]
+  >([]);
+  const [selectedLocation, setSelectedLocation] = useState<LocationData | null>(
+    null
+  );
+  const [currentLocation, setCurrentLocation] =
+    useState<Location.LocationObject | null>(null);
+  const [routeCoordinates, setRouteCoordinates] = useState<LocationData[]>([]);
 
   useEffect(() => {
     (async () => {
@@ -36,7 +47,12 @@ export default function App() {
     })();
   }, []);
 
-  const calculateDistance = (lat1, lon1, lat2, lon2) => {
+  const calculateDistance = (
+    lat1: number,
+    lon1: number,
+    lat2: number,
+    lon2: number
+  ): number => {
     const R = 6371e3;
     const φ1 = (lat1 * Math.PI) / 180;
     const φ2 = (lat2 * Math.PI) / 180;
@@ -52,7 +68,7 @@ export default function App() {
     return d;
   };
 
-  const showRecommendedLocations = () => {
+  const showRecommendedLocations = (): void => {
     const currentLocation = {
       latitude: region.latitude,
       longitude: region.longitude,
@@ -83,11 +99,11 @@ export default function App() {
     }
   };
 
-  const handleMarkerPress = (location) => {
+  const handleMarkerPress = (location): void => {
     setSelectedLocation(location);
   };
 
-  const guideMe = async () => {
+  const guideMe = async (): Promise<void> => {
     if (selectedLocation && currentLocation) {
       const route = [
         {
@@ -116,7 +132,7 @@ export default function App() {
     }
   };
 
-  const refresh = () => {
+  const refresh = (): void => {
     setRouteCoordinates([]);
     setSelectedLocation(null);
   };
