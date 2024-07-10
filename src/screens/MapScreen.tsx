@@ -4,12 +4,7 @@ import MapView, { Marker, Polyline } from "react-native-maps";
 import * as Location from "expo-location";
 import { GlobalStyles } from "../constants";
 import { locations } from "../constants/locations";
-
-interface LocationData {
-  latitude: number;
-  longitude: number;
-  title: string;
-}
+import { LocationData, Region } from "../types/mapTypes";
 
 export default function App() {
   const [region, setRegion] = useState<Region>({
@@ -18,6 +13,7 @@ export default function App() {
     latitudeDelta: 0.02,
     longitudeDelta: 0.02,
   });
+
   const [highlightedLocations, setHighlightedLocations] = useState<
     LocationData[]
   >([]);
@@ -25,8 +21,10 @@ export default function App() {
     null
   );
   const [currentLocation, setCurrentLocation] =
-    useState<Location.LocationObject | null>(null);
-  const [routeCoordinates, setRouteCoordinates] = useState<LocationData[]>([]);
+    useState<Location.LocationObjectCoords | null>(null);
+  const [routeCoordinates, setRouteCoordinates] = useState<
+    { latitude: number; longitude: number }[]
+  >([]);
 
   useEffect(() => {
     (async () => {
@@ -99,7 +97,7 @@ export default function App() {
     }
   };
 
-  const handleMarkerPress = (location): void => {
+  const handleMarkerPress = (location: LocationData): void => {
     setSelectedLocation(location);
   };
 
@@ -138,13 +136,20 @@ export default function App() {
   };
 
   return (
-    <SafeAreaView style={GlobalStyles.mapBox}>
+    <SafeAreaView
+      style={{
+        flex: 1,
+        backgroundColor: GlobalStyles.colors.gray,
+        width: "100%",
+        alignItems: "center",
+      }}
+    >
       <MapView
         style={GlobalStyles.map}
         region={region}
-        onRegionChangeComplete={setRegion}
+        onRegionChangeComplete={(newRegion) => setRegion(newRegion)}
       >
-        {locations.map((location, index) => (
+        {locations.map((location, index):void => (
           <Marker
             key={index}
             coordinate={{
@@ -156,6 +161,16 @@ export default function App() {
             onPress={() => handleMarkerPress(location)}
           />
         ))}
+        {currentLocation && (
+          <Marker
+            coordinate={{
+              latitude: currentLocation.latitude,
+              longitude: currentLocation.longitude,
+            }}
+            title="Current Location"
+            pinColor="green"
+          />
+        )}
         {routeCoordinates.length > 0 && (
           <Polyline
             coordinates={routeCoordinates}
@@ -173,7 +188,7 @@ export default function App() {
         </View>
       )}
       <View style={GlobalStyles.refreshButton}>
-        <Button title="refresh" onPress={refresh} />
+        <Button title="Refresh" onPress={refresh} />
       </View>
     </SafeAreaView>
   );
