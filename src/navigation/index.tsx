@@ -9,11 +9,9 @@ import {
 } from "@react-navigation/stack";
 import { StatusBar } from "react-native";
 import { MapScreen } from "../screens/MapScreen/MapScreen";
-import Test from "../screens/Test";
 
 export type RootStackParamList = {
   TestScreen: undefined;
-  Test: undefined;
 };
 
 export type RootNavigation = StackNavigationProp<RootStackParamList>;
@@ -29,8 +27,6 @@ export const Router = () => {
           headerShown: false,
         }}
       >
-        {/* <Stack.Screen name="TestScreen" component={Test} /> */}
-        {/* <Stack.Screen name="Test" component={Test} /> */}
         <Stack.Screen name="TestScreen" component={MapScreen} />
       </Stack.Navigator>
     </NavigationContainer>

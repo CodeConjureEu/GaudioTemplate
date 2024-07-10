@@ -3,6 +3,7 @@ import { MarkersType, markers } from "../../../constants/markers.constants";
 import * as Location from "expo-location";
 import { Alert } from "react-native";
 import { getDistance } from "../../../utils/helpers";
+import fetchRouteData from "../../../../api/GetCoords";
 
 export const useMapScreen = () => {
   const [selectedMarker, setSelectedMarker] = useState<MarkersType | null>(
@@ -13,14 +14,13 @@ export const useMapScreen = () => {
     longitude: number;
   } | null>(null);
   const [location, setLocation] =
-    useState<Location.LocationObjectCoords | null>(null);
+    useState<Location.LocationObjectCoords | null>();
   const [nearestMarkers, setNearestMarkers] = useState<MarkersType[]>([]);
   const [showNearest, setShowNearest] = useState(false);
   const [routeActive, setRouteActive] = useState(false);
   const [prevSelectedMarker, setPrevSelectedMarker] =
     useState<MarkersType | null>(null);
-
-  console.log(location);
+  const [coords, setCoords] = useState<number[][]>([]);
 
   useEffect(() => {
     const fetchLocation = async () => {
@@ -53,7 +53,7 @@ export const useMapScreen = () => {
     fetchLocation();
   }, []);
 
-  const onPressAddress = () => {
+  const onPressAddress = async () => {
     if (selectedMarker) {
       setDestination({
         latitude: selectedMarker.latitude,
@@ -63,6 +63,22 @@ export const useMapScreen = () => {
       setPrevSelectedMarker(selectedMarker);
     }
   };
+
+  useEffect(() => {
+    const fetchCoords = async () => {
+      if (destination) {
+
+        try {
+          const newCoords = await fetchRouteData(location, destination);
+          setCoords(newCoords);
+        } catch (error) {
+          console.error("Error fetching COORDS", error);
+        }
+      }
+    };
+
+    fetchCoords();
+  }, [destination]);
 
   const toggleRecommended = () => {
     setShowNearest((prev) => !prev);
@@ -97,5 +113,6 @@ export const useMapScreen = () => {
     selectedMarker,
     onPressAddress,
     routeActive,
+    coords,
   };
 };
