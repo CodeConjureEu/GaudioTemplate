@@ -42,4 +42,32 @@ export const GlobalStyles = {
     BottomBar: 74,
     reservedHeightTop: 118,
   },
+  container: {
+    flex: 1,
+    backgroundColor: "#fff",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  map: {
+    width: "100%",
+    height: "90%",
+  },
+  guideButton: {
+    position: "absolute",
+    bottom: 50,
+    left: "25%",
+    transform: [{ translateX: -50 }],
+  },
+  recomendButton: {
+    position: "absolute",
+    bottom: 50,
+    left: "50%",
+    transform: [{ translateX: -50 }],
+  },
+  refreshButton: {
+    position: "absolute",
+    bottom: 50,
+    left: "85%",
+    transform: [{ translateX: -50 }],
+  },
 };
