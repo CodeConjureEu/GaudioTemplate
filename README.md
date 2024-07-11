@@ -10,22 +10,12 @@ Before you begin, ensure you have the following installed:
 - Node.js (LTS version recommended)
 - npm (Node Package Manager)
 - Git (for version control)
-- Watchman (for macOS users)
 
 ## Setup
 
 Follow these steps to set up the project on your local machine:
 
-### 1. Clone the repository
-
-To get started, clone the project repository to your local machine using Git:
-
-```bash
-git clone https://github.com/CodeConjureEu/GaudioTemplate.git
-cd GaudioTemplate
-```
-
-### 2. Install dependencies
+### 1. Install dependencies
 
 Navigate to the project directory and install the required dependencies:
 
@@ -33,7 +23,7 @@ Navigate to the project directory and install the required dependencies:
 npm install
 ```
 
-### 3. Start the development server
+### 2. Start the development server
 
 You can start the Expo development server by running:
 
@@ -44,7 +34,7 @@ npm run start
 This command will open up a development environment in your default web browser, where you can scan the QR code with
 your Expo Go app on your smartphone or use a simulator/emulator.
 
-### 4. Running the app on a device/simulator directly
+### 3. Running the app on a device/simulator directly
 
 To run the app on a device or simulator directly, you can use the following commands:
 
