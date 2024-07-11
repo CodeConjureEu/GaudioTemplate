@@ -6,7 +6,7 @@ import { GlobalStyles } from "../constants";
 import { locations } from "../constants/locations";
 import { LocationData, Region } from "../types/mapTypes";
 
-export default function App() {
+export default function MapScreen() {
   const [region, setRegion] = useState<Region>({
     latitude: 47.1265432,
     longitude: 8.7523298,
