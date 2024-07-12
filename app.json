@@ -11,18 +11,25 @@
       "resizeMode": "contain",
       "backgroundColor": "#171E29"
     },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
+    "assetBundlePatterns": ["**/*"],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "config": {
+        "googleMapsApiKey": "AIzaSyBmHRIc9XbXcobx49624IzwgseEBK2NjVM"
+      }
     },
     "android": {
+      "config": {
+        "googleMaps": {
+          "apiKey": "AIzaSyBmHRIc9XbXcobx49624IzwgseEBK2NjVM"
+        }
+      },
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#171E29"
       }
     },
+
     "web": {
       "favicon": "./assets/favicon.png"
     },
@@ -31,9 +38,13 @@
       [
         "expo-font",
         {
-          "fonts": [
-            "./assets/fonts/Avenir-Roman.otf"
-          ]
+          "fonts": ["./assets/fonts/Avenir-Roman.otf"]
+        }
+      ],
+      [
+        "expo-location",
+        {
+          "locationAlwaysAndWhenInUsePermission": "Allow $(PRODUCT_NAME) to use your location."
         }
       ]
     ]
