@@ -107,7 +107,7 @@ Project Requirements:
 2. Selectable Coordinates:
 * Add markers for the following 8 locations with their respective coordinates:
   * Frauen Brunnen Einsiedeln: 47.1265432, 8.7523298
-  * Kloster Einsiedeln: 47.1265432, 8.7523298
+  * Kloster Einsiedeln: 47.1267771, 8.7523689
   * Wildbienen Paradies: 47.1253739, 8.7519874
   * Aussichtpunkt St. Benedikt Plattform: 47.1251207, 8.7556303
   * Panorama Einsiedeln: 47.1303645, 8.7495532
