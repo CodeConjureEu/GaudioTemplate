@@ -6,6 +6,7 @@ import * as Location from "expo-location";
 import MapView, { Callout, Marker, CalloutSubview } from "react-native-maps";
 import { DefaultButton } from "../../components";
 import { Dimensions, StyleSheet, Text, View } from "react-native";
+import openMap, { createMapLink, createOpenLink } from "react-native-open-maps";
 
 export const useData = () => {
   const [recommendedLocations, setRecommendedLocations] = useState<
@@ -49,12 +50,49 @@ export const useData = () => {
               >
                 {location.name}
               </Text>
-              <DefaultButton
-                label="Guid"
-                handlePress={() => {
-                  handlePressGuide(location.coordiante);
+              <View
+                style={{
+                  width: "100%",
+                  alignSelf: "center",
+                  alignItems: "center",
+                  position: "absolute",
+                  bottom: 40,
                 }}
-              />
+              >
+                <DefaultButton
+                  label="Guid"
+                  handlePress={() => {
+                    handlePressGuide(location.coordiante);
+                  }}
+                />
+              </View>
+              <CalloutSubview
+                onPress={() =>
+                  openMap({
+                    latitude: location.coordiante.latitude,
+                    longitude: location.coordiante.longitude,
+                    provider: "google",
+                  })
+                }
+                style={{
+                  alignSelf: "center",
+                  width: "100%",
+                  justifyContent: "center",
+                  position: "absolute",
+                  bottom: 0,
+                }}
+              >
+                <DefaultButton
+                  label="Open web map"
+                  handlePress={() => {
+                    openMap({
+                      latitude: location.coordiante.latitude,
+                      longitude: location.coordiante.longitude,
+                      provider: "google",
+                    });
+                  }}
+                />
+              </CalloutSubview>
             </View>
           </Callout>
         </Marker>
@@ -75,7 +113,9 @@ export const useData = () => {
       });
 
     if (data && data.filter((loc) => loc.distance <= 5000).length >= 3) {
-      setRecommendedLocations(data.slice(0, 3));
+      setRecommendedLocations(
+        data.sort((a, b) => b.distance - a.distance).slice(0, 3)
+      );
       mapRef.current?.animateToRegion({
         ...data[0].coordiante,
         latitudeDelta: 0.1,
@@ -100,6 +140,7 @@ export const useData = () => {
   return {
     userCoordinate,
     destination,
+    setRecommendedLocations,
     handlePressRecommended,
     recommendedLocations,
     mapRef,

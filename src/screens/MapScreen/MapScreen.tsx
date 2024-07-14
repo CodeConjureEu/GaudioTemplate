@@ -10,6 +10,7 @@ export const MapScreen = () => {
     handlePressRecommended,
     recommendedLocations,
     mapRef,
+    setRecommendedLocations,
     userCoordinate,
     destination,
     renderMarkers,
@@ -35,9 +36,9 @@ export const MapScreen = () => {
           origin={userCoordinate}
           destination={destination}
           strokeColor={GlobalStyles.colors.vividTangelo}
-          strokeWidth={2}
+          strokeWidth={8}
           //      (ADD_API_KEY)
-          apikey="AIzaSyBmHRIc9XbXcobx49624IzwgseEBK2NjVM"
+          apikey="AIzaSyAB-8ilnQlTLCsXkYOtkTxLBzLQtjpE2bQ"
         />
         {renderMarkers(
           recommendedLocations.length <= 0 ? locations : recommendedLocations
@@ -45,8 +46,12 @@ export const MapScreen = () => {
       </MapView>
       <View style={{ position: "absolute", bottom: 20, alignSelf: "center" }}>
         <DefaultButton
-          label="Recommended"
-          handlePress={handlePressRecommended}
+          label={recommendedLocations.length > 0 ? "Show all" : "Recommended"}
+          handlePress={() =>
+            recommendedLocations.length !== 0
+              ? setRecommendedLocations([])
+              : handlePressRecommended()
+          }
         />
       </View>
     </View>
