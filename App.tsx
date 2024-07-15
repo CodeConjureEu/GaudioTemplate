@@ -1,5 +1,6 @@
 import "@expo/metro-runtime";
 import "react-native-gesture-handler";
+
 import React from "react";
 import { Router } from "./src/navigation";
 import { SafeAreaProvider } from "react-native-safe-area-context";

@@ -1,3 +1,6 @@
+import "@expo/metro-runtime";
+import "react-native-gesture-handler";
+
 import { NavigationContainer } from "@react-navigation/native";
 import React from "react";
 import {
@@ -5,7 +8,7 @@ import {
   createStackNavigator,
 } from "@react-navigation/stack";
 import { StatusBar } from "react-native";
-import TestScreen from "../screens/TestScreen";
+import { MapScreen } from "../screens/MapScreen/MapScreen";
 
 export type RootStackParamList = {
   TestScreen: undefined;
@@ -24,7 +27,7 @@ export const Router = () => {
           headerShown: false,
         }}
       >
-        <Stack.Screen name="TestScreen" component={TestScreen} />
+        <Stack.Screen name="TestScreen" component={MapScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );
