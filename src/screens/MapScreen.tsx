@@ -1,10 +1,11 @@
-import React, { useState, useEffect } from "react";
+import  { useState, useEffect } from "react";
 import { View, Button, Alert, SafeAreaView } from "react-native";
 import MapView, { Marker, Polyline } from "react-native-maps";
 import * as Location from "expo-location";
 import { GlobalStyles } from "../constants";
 import { locations } from "../constants/locations";
 import { LocationData, Region } from "../types/mapTypes";
+import React = require("react");
 
 export function MapScreen() {
   const [region, setRegion] = useState<Region>({
