@@ -5,7 +5,7 @@ import {
   createStackNavigator,
 } from "@react-navigation/stack";
 import { StatusBar } from "react-native";
-import MapScreen from "../screens/MapScreen";
+import { MapScreen } from "../screens/MapScreen";
 
 export type RootStackParamList = {
   TestScreen: undefined;

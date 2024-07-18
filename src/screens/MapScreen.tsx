@@ -6,7 +6,7 @@ import { GlobalStyles } from "../constants";
 import { locations } from "../constants/locations";
 import { LocationData, Region } from "../types/mapTypes";
 
-export default function App() {
+export function MapScreen() {
   const [region, setRegion] = useState<Region>({
     latitude: 47.1265432,
     longitude: 8.7523298,
@@ -26,22 +26,34 @@ export default function App() {
     { latitude: number; longitude: number }[]
   >([]);
 
+
+	const locationsAction = async () => {
+		try {
+			let { status } = await Location.requestForegroundPermissionsAsync();
+			if (status !== "granted") {
+				console.log("Permission to access location was denied");
+				return;
+			}
+	
+			let location = await Location.getCurrentPositionAsync({});
+			if (location && location.coords) {
+				setCurrentLocation(location.coords);
+				setRegion({
+					latitude: location.coords.latitude,
+					longitude: location.coords.longitude,
+					latitudeDelta: 0.02,
+					longitudeDelta: 0.02,
+				});
+			} else {
+				console.log("Unable to get location coordinates");
+			}
+		} catch (error) {
+			console.error("Error getting location: ", error);
+		}
+	};
+
   useEffect(() => {
-    (async () => {
-      let { status } = await Location.requestForegroundPermissionsAsync();
-      if (status !== "granted") {
-        console.log("Permission to access location was denied");
-        return;
-      }
-      let location = await Location.getCurrentPositionAsync({});
-      setCurrentLocation(location.coords);
-      setRegion({
-        latitude: location.coords.latitude,
-        longitude: location.coords.longitude,
-        latitudeDelta: 0.02,
-        longitudeDelta: 0.02,
-      });
-    })();
+		locationsAction()
   }, []);
 
   const calculateDistance = (
@@ -148,7 +160,7 @@ export default function App() {
         region={region}
         onRegionChangeComplete={(newRegion) => setRegion(newRegion)}
       >
-        {locations.map((location, index):void => (
+        {locations.map((location, index) => (
           <Marker
             key={index}
             coordinate={{
@@ -192,3 +204,5 @@ export default function App() {
     </SafeAreaView>
   );
 }
+
+
