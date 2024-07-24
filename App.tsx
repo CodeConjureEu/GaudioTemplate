@@ -5,6 +5,7 @@ import { Router } from "./src/navigation/index";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import { registerRootComponent } from "expo";
 
+
 export default function App() {
   return (
     <SafeAreaProvider>
