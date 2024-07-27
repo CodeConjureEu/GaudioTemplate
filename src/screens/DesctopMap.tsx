@@ -1,13 +1,44 @@
 import React, { useState } from "react";
-import {
-  MapContainer,
-  TileLayer,
-  Marker,
-  Popup,
-} from "react-leaflet";
+import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
+import * as Location from "expo-location";
+import { LocationData, Region } from "../types/mapTypes";
 
 const DesctopMap = () => {
   const [position, setPosition] = useState([47.1265432, 8.7523298]);
+
+  const [highlightedLocations, setHighlightedLocations] = useState<
+    LocationData[]
+  >([]);
+  const [selectedLocation, setSelectedLocation] = useState<LocationData | null>(
+    null
+  );
+  const [currentLocation, setCurrentLocation] = useState<number | null>(null);
+  const [routeCoordinates, setRouteCoordinates] = useState<
+    { latitude: number; longitude: number }[]
+  >([]);
+
+  const locationsAction = async () => {
+    try {
+      let { status } = await Location.requestForegroundPermissionsAsync();
+      if (status !== "granted") {
+        console.log("Permission to access location was denied");
+        return;
+      }
+
+      let location = await Location.getCurrentPositionAsync({});
+      if (location && location.coords) {
+        setCurrentLocation([
+          location.coords.latitude,
+          location.coords.longitude,
+        ]);
+        setPosition([location.coords.latitude, location.coords.longitude]);
+      } else {
+        console.log("Unable to get location coordinates");
+      }
+    } catch (error) {
+      console.error("Error getting location: ", error);
+    }
+  };
 
   return (
     <MapContainer
