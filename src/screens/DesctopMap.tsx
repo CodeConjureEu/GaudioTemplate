@@ -1,12 +1,57 @@
+import React, { useState } from "react";
+import {
+  MapContainer,
+  TileLayer,
+  Marker,
+  Popup,
+} from "react-leaflet";
+
+const DesctopMap = () => {
+  const [position, setPosition] = useState([47.1265432, 8.7523298]);
+
+  return (
+    <MapContainer
+      center={position}
+      zoom={13}
+      style={{ height: "400px", width: "100%" }}
+    >
+      <TileLayer
+        url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+        attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+      />
+      <Marker position={position}>
+        <Popup>
+          A pretty CSS3 popup. <br /> Easily customizable.
+        </Popup>
+      </Marker>
+    </MapContainer>
+  );
+};
+
+export default DesctopMap;
+
 // import React, { useState, useEffect } from "react";
-// import { View, Button, Alert, SafeAreaView } from "react-native";
-// import { Map, GoogleApiWrapper, Marker, Polyline } from "google-maps-react";
+// import {
+//   MapContainer,
+//   TileLayer,
+//   Marker,
+//   Polyline,
+//   Popup,
+// } from "react-leaflet";
+// import L from "leaflet";
 // import * as Location from "expo-location";
 // import { GlobalStyles } from "../constants";
 // import { locations } from "../constants/locations";
 // import { LocationData, Region } from "../types/mapTypes";
 
-// export function DesctopMap(props) {
+// delete L.Icon.Default.prototype._getIconUrl;
+// L.Icon.Default.mergeOptions({
+//   iconRetinaUrl: require("leaflet/dist/images/marker-icon-2x.png"),
+//   iconUrl: require("leaflet/dist/images/marker-icon.png"),
+//   shadowUrl: require("leaflet/dist/images/marker-shadow.png"),
+// });
+
+// function MapScreen() {
 //   const [region, setRegion] = useState<Region>({
 //     latitude: 47.1265432,
 //     longitude: 8.7523298,
@@ -20,8 +65,10 @@
 //   const [selectedLocation, setSelectedLocation] = useState<LocationData | null>(
 //     null
 //   );
-//   const [currentLocation, setCurrentLocation] =
-//     useState<Location.LocationObjectCoords | null>(null);
+//   const [currentLocation, setCurrentLocation] = useState<{
+//     latitude: number;
+//     longitude: number;
+//   } | null>(null);
 //   const [routeCoordinates, setRouteCoordinates] = useState<
 //     { latitude: number; longitude: number }[]
 //   >([]);
@@ -36,7 +83,10 @@
 
 //       let location = await Location.getCurrentPositionAsync({});
 //       if (location && location.coords) {
-//         setCurrentLocation(location.coords);
+//         setCurrentLocation({
+//           latitude: location.coords.latitude,
+//           longitude: location.coords.longitude,
+//         });
 //         setRegion({
 //           latitude: location.coords.latitude,
 //           longitude: location.coords.longitude,
@@ -61,7 +111,7 @@
 //     lat2: number,
 //     lon2: number
 //   ): number => {
-//     const R = 6371e3;
+//     const R = 6371e3; // metres
 //     const φ1 = (lat1 * Math.PI) / 180;
 //     const φ2 = (lat2 * Math.PI) / 180;
 //     const Δφ = ((lat2 - lat1) * Math.PI) / 180;
@@ -77,33 +127,31 @@
 //   };
 
 //   const showRecommendedLocations = (): void => {
-//     const currentLocation = {
-//       latitude: region.latitude,
-//       longitude: region.longitude,
-//     };
-//     const sortedLocations = [...locations].sort((a, b): number => {
-//       const distanceA = calculateDistance(
-//         currentLocation.latitude,
-//         currentLocation.longitude,
-//         a.latitude,
-//         a.longitude
-//       );
-//       const distanceB = calculateDistance(
-//         currentLocation.latitude,
-//         currentLocation.longitude,
-//         b.latitude,
-//         b.longitude
-//       );
-//       return distanceA - distanceB;
-//     });
-//     setHighlightedLocations(sortedLocations.slice(0, 3));
-//     if (sortedLocations.length > 0) {
-//       setRegion({
-//         latitude: sortedLocations[0].latitude,
-//         longitude: sortedLocations[0].longitude,
-//         latitudeDelta: 0.01,
-//         longitudeDelta: 0.01,
+//     if (currentLocation) {
+//       const sortedLocations = [...locations].sort((a, b) => {
+//         const distanceA = calculateDistance(
+//           currentLocation.latitude,
+//           currentLocation.longitude,
+//           a.latitude,
+//           a.longitude
+//         );
+//         const distanceB = calculateDistance(
+//           currentLocation.latitude,
+//           currentLocation.longitude,
+//           b.latitude,
+//           b.longitude
+//         );
+//         return distanceA - distanceB;
 //       });
+//       setHighlightedLocations(sortedLocations.slice(0, 3));
+//       if (sortedLocations.length > 0) {
+//         setRegion({
+//           latitude: sortedLocations[0].latitude,
+//           longitude: sortedLocations[0].longitude,
+//           latitudeDelta: 0.01,
+//           longitudeDelta: 0.01,
+//         });
+//       }
 //     }
 //   };
 
@@ -154,56 +202,45 @@
 //         alignItems: "center",
 //       }}
 //     >
-//       <Map
-//         google={props.google}
-//         zoom={12}
-//         style={GlobalStyles.map}
-//         initialCenter={{
-//           lat: region.latitude,
-//           lng: region.longitude,
-//         }}
-//         center={{
-//           lat: region.latitude,
-//           lng: region.longitude,
-//         }}
-//         onDragend={(mapProps, map) =>
-//           setRegion({
-//             latitude: map.center.lat(),
-//             longitude: map.center.lng(),
-//             latitudeDelta: region.latitudeDelta,
-//             longitudeDelta: region.longitudeDelta,
-//           })
-//         }
-//       >
-//         {locations.map((location, index) => (
-//           <Marker
-//             key={index}
-//             position={{ lat: location.latitude, lng: location.longitude }}
-//             title={location.title}
-//             onClick={() => handleMarkerPress(location)}
+//       <div style={{ height: "400px", width: "100%" }}>
+//         <MapContainer
+//           center={[region.latitude, region.longitude]}
+//           zoom={13}
+//           style={{ height: "100%", width: "100%" }}
+//         >
+//           <TileLayer
+//             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+//             attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
 //           />
-//         ))}
-//         {currentLocation && (
-//           <Marker
-//             position={{
-//               lat: currentLocation.latitude,
-//               lng: currentLocation.longitude,
-//             }}
-//             title="Current Location"
-//           />
-//         )}
-//         {routeCoordinates.length > 0 && (
-//           <Polyline
-//             path={routeCoordinates.map((coord) => ({
-//               lat: coord.latitude,
-//               lng: coord.longitude,
-//             }))}
-//             strokeColor="#000"
-//             strokeOpacity={1.0}
-//             strokeWeight={6}
-//           />
-//         )}
-//       </Map>
+//           {locations.map((location, index) => (
+//             <Marker
+//               key={index}
+//               position={[location.latitude, location.longitude]}
+//               eventHandlers={{
+//                 click: () => handleMarkerPress(location),
+//               }}
+//             >
+//               <Popup>{location.title}</Popup>
+//             </Marker>
+//           ))}
+//           {currentLocation && (
+//             <Marker
+//               position={[currentLocation.latitude, currentLocation.longitude]}
+//             >
+//               <Popup>Current Location</Popup>
+//             </Marker>
+//           )}
+//           {routeCoordinates.length > 0 && (
+//             <Polyline
+//               positions={routeCoordinates.map((coord) => [
+//                 coord.latitude,
+//                 coord.longitude,
+//               ])}
+//               color="#000"
+//             />
+//           )}
+//         </MapContainer>
+//       </div>
 //       <View style={GlobalStyles.recomendButton}>
 //         <Button title="Recommended" onPress={showRecommendedLocations} />
 //       </View>
@@ -219,58 +256,4 @@
 //   );
 // }
 
-// export default GoogleApiWrapper({
-//   apiKey: YOUR_GOOGLE_MAPS_API_KEY,
-// })(DesctopMap);
-
-//! Need to add Google api key
-
-// import React from 'react';
-// import { Text} from 'react-native';
-// const DesctopMap = () => {
-//   return (
-
-//         <>
-//           <Text>isPad</Text>
-//           <Text>ASGGA</Text>
-//         </>
-//   );
-// };
-
-// export default DesctopMap;
-
-import React, { useState } from "react";
-import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
-import L from "leaflet";
-
-delete L.Icon.Default.prototype._getIconUrl;
-
-L.Icon.Default.mergeOptions({
-  iconRetinaUrl: require("leaflet/dist/images/marker-icon-2x.png"),
-  iconUrl: require("leaflet/dist/images/marker-icon.png"),
-  shadowUrl: require("leaflet/dist/images/marker-shadow.png"),
-});
-
-const DesctopMap = () => {
-  const [position, setPosition] = useState([47.444, -122.176]);
-
-  return (
-    <MapContainer
-      center={position}
-      zoom={13}
-      style={{ height: "400px", width: "100%" }}
-    >
-      <TileLayer
-        url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-        attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-      />
-      <Marker position={position}>
-        <Popup>
-          A pretty CSS3 popup. <br /> Easily customizable.
-        </Popup>
-      </Marker>
-    </MapContainer>
-  );
-};
-
-export default DesctopMap;
+// export default MapScreen;
