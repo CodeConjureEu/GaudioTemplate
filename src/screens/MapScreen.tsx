@@ -207,5 +207,3 @@ function MapScreen() {
 
 export default MapScreen
 
-//! 
-//? problem in MapView component
