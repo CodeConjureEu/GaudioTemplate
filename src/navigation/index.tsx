@@ -5,7 +5,7 @@ import {
   createStackNavigator,
 } from "@react-navigation/stack";
 import { StatusBar } from "react-native";
-import { MapScreen } from "../screens/MapScreen";
+import MapRoute from "../screens/MapRoute";
 
 export type RootStackParamList = {
   TestScreen: undefined;
@@ -15,7 +15,7 @@ export type RootNavigation = StackNavigationProp<RootStackParamList>;
 
 const Stack = createStackNavigator<RootStackParamList>();
 
-export const Router = () => {
+ const Router = () => {
   return (
     <NavigationContainer>
       <StatusBar backgroundColor="transparent" />
@@ -24,8 +24,10 @@ export const Router = () => {
           headerShown: false,
         }}
       >
-        <Stack.Screen name="MapScreen" component={MapScreen} />
+        <Stack.Screen name="MapRoute" component={MapRoute} />
       </Stack.Navigator>
     </NavigationContainer>
   );
 };
+
+export default Router

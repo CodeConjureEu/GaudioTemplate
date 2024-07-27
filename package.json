@@ -40,6 +40,7 @@
     "expo-localization": "~15.0.3",
     "expo-location": "^17.0.1",
     "expo-status-bar": "~1.12.1",
+    "google-maps-react": "^2.0.6",
     "i18next": "^23.11.5",
     "isomorphic-ws": "^5.0.0",
     "lodash": "^4.17.21",
